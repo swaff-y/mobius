@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Patients</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Clinic</th>
+      <th>Consent</th>
+      <th>Email</th>
+      <th>First name</th>
+      <th>Referring clinician</th>
+      <th>Last name</th>
+      <th>Mobile number</th>
+      <th>Procedure</th>
+      <th>Procedure start date</th>
+      <th>Program status</th>
+      <th>Team member</th>
+      <th>Response status</th>
+      <th>Return patient</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td><%= patient.clinic %></td>
+        <td><%= patient.consent %></td>
+        <td><%= patient.email %></td>
+        <td><%= patient.first_name %></td>
+        <td><%= patient.referring_clinician %></td>
+        <td><%= patient.last_name %></td>
+        <td><%= patient.mobile_number %></td>
+        <td><%= patient.procedure_id %></td>
+        <td><%= patient.procedure_start_date %></td>
+        <td><%= patient.program_status %></td>
+        <td><%= patient.team_member %></td>
+        <td><%= patient.response_status %></td>
+        <td><%= patient.return_patient %></td>
+        <td><%= link_to 'Show', patient %></td>
+        <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
+        <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Patient', new_patient_path %>

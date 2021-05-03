@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Clinic:</strong>
+  <%= @patient.clinic %>
+</p>
+
+<p>
+  <strong>Consent:</strong>
+  <%= @patient.consent %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @patient.email %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @patient.first_name %>
+</p>
+
+<p>
+  <strong>Referring clinician:</strong>
+  <%= @patient.referring_clinician %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @patient.last_name %>
+</p>
+
+<p>
+  <strong>Mobile number:</strong>
+  <%= @patient.mobile_number %>
+</p>
+
+<p>
+  <strong>Procedure:</strong>
+  <%= @patient.procedure_id %>
+</p>
+
+<p>
+  <strong>Procedure start date:</strong>
+  <%= @patient.procedure_start_date %>
+</p>
+
+<p>
+  <strong>Program status:</strong>
+  <%= @patient.program_status %>
+</p>
+
+<p>
+  <strong>Team member:</strong>
+  <%= @patient.team_member %>
+</p>
+
+<p>
+  <strong>Response status:</strong>
+  <%= @patient.response_status %>
+</p>
+
+<p>
+  <strong>Return patient:</strong>
+  <%= @patient.return_patient %>
+</p>
+
+<%= link_to 'Edit', edit_patient_path(@patient) %> |
+<%= link_to 'Back', patients_path %>

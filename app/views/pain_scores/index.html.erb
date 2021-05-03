@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Pain Scores</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th>Patient</th>
+      <th>Procedure</th>
+      <th>Score</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pain_scores.each do |pain_score| %>
+      <tr>
+        <td><%= pain_score.day %></td>
+        <td><%= pain_score.patient %></td>
+        <td><%= pain_score.procedure %></td>
+        <td><%= pain_score.score %></td>
+        <td><%= link_to 'Show', pain_score %></td>
+        <td><%= link_to 'Edit', edit_pain_score_path(pain_score) %></td>
+        <td><%= link_to 'Destroy', pain_score, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pain Score', new_pain_score_path %>

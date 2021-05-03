@@ -1,0 +1,32 @@
+<%= form_with(model: procedure) do |form| %>
+  <% if procedure.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(procedure.errors.count, "error") %> prohibited this procedure from being saved:</h2>
+
+      <ul>
+        <% procedure.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_area :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :procedure_ID %>
+    <%= form.text_area :procedure_ID %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

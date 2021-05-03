@@ -1,0 +1,37 @@
+<%= form_with(model: pain_score) do |form| %>
+  <% if pain_score.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pain_score.errors.count, "error") %> prohibited this pain_score from being saved:</h2>
+
+      <ul>
+        <% pain_score.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :day %>
+    <%= form.number_field :day %>
+  </div>
+
+  <div class="field">
+    <%= form.label :patient %>
+    <%= form.number_field :patient %>
+  </div>
+
+  <div class="field">
+    <%= form.label :procedure %>
+    <%= form.number_field :procedure %>
+  </div>
+
+  <div class="field">
+    <%= form.label :score %>
+    <%= form.number_field :score %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

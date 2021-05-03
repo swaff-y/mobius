@@ -1,0 +1,82 @@
+<%= form_with(model: patient) do |form| %>
+  <% if patient.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(patient.errors.count, "error") %> prohibited this patient from being saved:</h2>
+
+      <ul>
+        <% patient.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :clinic %>
+    <%= form.number_field :clinic %>
+  </div>
+
+  <div class="field">
+    <%= form.label :consent %>
+    <%= form.check_box :consent %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_area :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_area :first_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :referring_clinician %>
+    <%= form.text_area :referring_clinician %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_name %>
+    <%= form.text_area :last_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mobile_number %>
+    <%= form.text_area :mobile_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :procedure_id %>
+    <%= form.number_field :procedure_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :procedure_start_date %>
+    <%= form.date_select :procedure_start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :program_status %>
+    <%= form.text_area :program_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_member %>
+    <%= form.number_field :team_member %>
+  </div>
+
+  <div class="field">
+    <%= form.label :response_status %>
+    <%= form.text_area :response_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :return_patient %>
+    <%= form.check_box :return_patient %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

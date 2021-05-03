@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Day:</strong>
+  <%= @pain_score.day %>
+</p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @pain_score.patient %>
+</p>
+
+<p>
+  <strong>Procedure:</strong>
+  <%= @pain_score.procedure %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @pain_score.score %>
+</p>
+
+<%= link_to 'Edit', edit_pain_score_path(@pain_score) %> |
+<%= link_to 'Back', pain_scores_path %>

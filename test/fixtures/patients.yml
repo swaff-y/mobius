@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  clinic: 1
+  consent: false
+  email: MyText
+  first_name: MyText
+  referring_clinician: MyText
+  last_name: MyText
+  mobile_number: MyText
+  procedure_id: 1
+  procedure_start_date: 2021-04-30
+  program_status: MyText
+  team_member: 1
+  response_status: MyText
+  return_patient: false
+
+two:
+  clinic: 1
+  consent: false
+  email: MyText
+  first_name: MyText
+  referring_clinician: MyText
+  last_name: MyText
+  mobile_number: MyText
+  procedure_id: 1
+  procedure_start_date: 2021-04-30
+  program_status: MyText
+  team_member: 1
+  response_status: MyText
+  return_patient: false
