@@ -1,5 +1,6 @@
 class ClinicsController < ApplicationController
   before_action :set_clinic, only: %i[ show edit update destroy ]
+  skip_before_action :verify_authenticity_token
 
   # GET /clinics or /clinics.json
   def index
@@ -62,7 +63,7 @@ class ClinicsController < ApplicationController
 
   def clinics_all
     clinics = Clinic.all
-    render json: clinics
+    render json: clinics, include: ['team_members']
   end
 
   def clinic_one
@@ -73,6 +74,40 @@ class ClinicsController < ApplicationController
 
   def clinic_select_user
     params[:user_id]
+  end
+
+  def create_clinic
+    # params[:name]
+    # params[:address]
+    clinic = Clinic.create(
+      name: params[:name],
+      address: params[:address]
+    )
+
+    render json: clinic
+  end
+
+  def edit_clinic
+    # params[:name]
+    # params[:address]
+    # params[:clinic_id]
+    clinic = Clinic.find(params[:clinic_id])
+
+    clinic.update(
+      name: params[:name],
+      address: params[:address]
+    )
+
+    render json: clinic
+  end
+
+  def delete_clinic
+    # params[:name]
+    # params[:address]
+    # params[:clinic_id]
+    clinic = Clinic.find(params[:clinic_id])
+    render json: clinic
+    clinic.destroy
   end
 
   def clinics_select_patients

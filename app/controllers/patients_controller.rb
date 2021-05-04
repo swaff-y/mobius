@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
   before_action :set_patient, only: %i[ show edit update destroy ]
+  skip_before_action :verify_authenticity_token
 
   # GET /patients or /patients.json
   def index
@@ -82,26 +83,108 @@ class PatientsController < ApplicationController
   end
 
   def create_patient
-    params[:first_name]
-    params[:last_name]
-    params[:mobile_number]
-    params[:return_patient]
-    params[:consent]
-    params[:procedure_start_date]
-    params[:GP_referring]
-    params[:clinic_id]
-    params[:team_member_id]
-    params[:email]
+    # params[:first_name]
+    # params[:last_name]
+    # params[:mobile_number]
+    # params[:return_patient]
+    # params[:consent]
+    # params[:procedure_start_date]
+    # params[:referring_clinician]
+    # params[:clinic_id]
+    # params[:team_member_id]
+    # params[:email]
+
+    mobile_string = params[:mobile_number].to_s
+
+    mobile_number = []
+    mobile_string.split("").each do |char|
+      if char.to_i >= 0 && char.to_i <= 9
+        mobile_number.push char
+      end
+    end
+    mobile_number = mobile_number.join("").to_s
+
+    clinic = Clinic.find(params[:clinic_id])
+
+    patient = Patient.create(
+      consent: params[:consent],
+      email: params[:email],
+      first_name: params[:first_name],
+      referring_clinician: params[:referring_clinician],
+      last_name: params[:last_name],
+      mobile_number: mobile_number,
+      procedure_start_date: params[:procedure_start_date],
+      program_status: "Active",
+      response_status: "No Response",
+      return_patient: params[:return_patient],
+      team_member_id: params[:team_member_id]
+    )
+
+    d = DateTime.parse(params[:procedure_start_date])
+    date = d.strftime("%Y-%m-%d")
+
+    first_three = []
+    second_three = []
+    last_four = []
+    count = 1
+    mobile_number.to_s.split("").each do |char|
+      if count >= 1 && count <= 3
+        first_three.push char
+      elsif count > 3 && count <= 6
+        second_three.push char
+      else
+        last_four.push char
+      end
+      count += 1
+    end
+
+    number = "(" + first_three.join("").to_s + ") " + second_three.join("").to_s + " " + last_four.join("").to_s
+
+    procedure_id = date + "_" + number
+
+    name = params[:first_name] + " " + params[:last_name] + " " + params[:procedure_start_date]
+
+    procedure = Procedure.create(
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      name: name,
+      procedure_ID: procedure_id
+    )
+
+    patient.procedures << procedure
+    clinic.procedures << procedure
+    patient.clinics << clinic
+
+    render json: patient, include: ['procedures','team_member']
+
   end
   def edit_patient
-    params[:first_name]
-    params[:last_name]
-    params[:mobile]
-    params[:date]
-    params[:gp]
-    params[:radiologist]
-    params[:clinic]
-    params[:patient_id]
+    # params[:first_name]
+    # params[:last_name]
+    # params[:mobile_number]
+    # params[:procedure_start_date]
+    # params[:referring_clinician]
+    # params[:team_member_id]
+    # params[:clinic_id]
+    # params[:clinic_old_id]
+    # params[:patient_id]
+    patient = Patient.find(params[:patient_id])
+    clinic = Clinic.find(params[:clinic_id])
+    clinic_old = Clinic.find(params[:clinic_old_id])
+
+    patient.update(
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      mobile_number: params[:mobile_number],
+      procedure_start_date: params[:procedure_start_date],
+      referring_clinician: params[:referring_clinician],
+      team_member_id: params[:team_member_id]
+    )
+
+    patient.clinics.delete clinic_old
+
+    patient.clinics << clinic
+
+    render json: patient, include: ['procedures','team_member']
   end
 
   private

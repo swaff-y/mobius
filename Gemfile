@@ -51,3 +51,5 @@ end
 gem 'faker'
 
 gem 'pry-rails'
+
+gem "rack-cors"

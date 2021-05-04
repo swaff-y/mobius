@@ -24,5 +24,8 @@ Rails.application.routes.draw do
   get '/patient-one/' => 'patients#patient_one'
   get '/pain-scores-select-patient/' => 'pain_scores#pain_scores_select_patient'
   post '/create-patient/' => 'patients#create_patient'
+  post '/create-clinic/' => 'clinics#create_clinic'
   post '/edit-patient/' => 'patients#edit_patient'
+  post '/edit-clinic/' => 'clinics#edit_clinic'
+  delete '/delete-clinic/' => 'clinics#delete_clinic'
 end

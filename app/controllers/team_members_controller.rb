@@ -58,7 +58,7 @@ class TeamMembersController < ApplicationController
 
   def team_members_all
     team_members = TeamMember.all
-    render json: team_members
+    render json: team_members, include: ['clinic']
   end
   def team_member_one
     # params[:team_member_id]
