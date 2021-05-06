@@ -104,7 +104,7 @@ procedure_array = []
   mobile_number = mobile_number.join("").to_s
 
 
-  d = DateTime.parse(Faker::Date.forward(days: rand(1..30)))
+  d = DateTime.parse(Faker::Date.forward(days: rand(1..30)).to_s)
 
   date = d.strftime("%Y-%m-%d")
 
