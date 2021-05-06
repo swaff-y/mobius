@@ -1,4 +1,4 @@
 class TeamMember < ApplicationRecord
-  belongs_to :clinic, optional:true
+  has_and_belongs_to_many :clinics
   has_many :patients
 end

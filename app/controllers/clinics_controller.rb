@@ -61,6 +61,7 @@ class ClinicsController < ApplicationController
     params[:useR]
   end
 
+
   def clinics_all
     clinics = Clinic.all
     render json: clinics, include: ['team_members']
@@ -116,6 +117,11 @@ class ClinicsController < ApplicationController
       # params[:sort]
       # params[:direction]
       clinics = Patient.find(params[:patient_id]).clinics.all
+      render json: clinics
+  end
+  def clinic_select_team_member
+      # params[:team_member_id]
+      clinics = TeamMember.find(params[:team_member_id]).clinics.all
       render json: clinics
   end
 

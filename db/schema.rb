@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_03_014654) do
+ActiveRecord::Schema.define(version: 2021_05_05_030805) do
 
   create_table "clinics", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "address"
@@ -22,6 +22,11 @@ ActiveRecord::Schema.define(version: 2021_05_03_014654) do
   create_table "clinics_patients", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "clinic_id", null: false
     t.bigint "patient_id", null: false
+  end
+
+  create_table "clinics_team_members", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "team_member_id", null: false
+    t.bigint "clinic_id", null: false
   end
 
   create_table "pain_scores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

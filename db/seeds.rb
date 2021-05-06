@@ -206,7 +206,8 @@ counter = 0
   end
 end
 puts "------------------------------------------"
-puts "Testing team_members >- clinic associations:"
-puts "The team member '#{ TeamMember.first.first_name }' has clinic #{TeamMember.first.clinic.name}"
+puts "Testing team_members >-< clinic associations:"
+
+puts "The team member #{ TeamMember.first.first_name } has clinics: #{ TeamMember.first.clinics.pluck(:name).join(', ') }"
 puts "The clinic #{ Clinic.last.name } has team members: #{ Clinic.last.team_members.pluck(:first_name).join(', ') }"
 puts "------------------------------------------"

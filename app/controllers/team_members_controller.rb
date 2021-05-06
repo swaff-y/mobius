@@ -1,5 +1,6 @@
 class TeamMembersController < ApplicationController
   before_action :set_team_member, only: %i[ show edit update destroy ]
+  skip_before_action :verify_authenticity_token
 
   # GET /team_members or /team_members.json
   def index
@@ -58,15 +59,75 @@ class TeamMembersController < ApplicationController
 
   def team_members_all
     team_members = TeamMember.all
-    render json: team_members, include: ['clinic']
+    render json: team_members, include: ['clinics']
+  end
+  def team_members_select_clinic
+    team_members = Clinic.find(params[:clinic_id]).team_members.all
+    render json: team_members, include: ['clinics']
   end
   def team_member_one
     # params[:team_member_id]
     team_member = TeamMember.find(params[:team_member_id])
-    render json: team_member
+    render json: team_member, include: ['clinics']
   end
   def team_member_select_clinic
     params[:clinic_id]
+  end
+
+  def create_team_member
+    clinics = params[:clinics].split(", ")
+
+    team_member = TeamMember.create(
+      email: params[:email],
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      user: params[:user]
+    )
+
+    clinics.each do |clinic|
+      Clinic.find(clinic).team_members << team_member
+    end
+
+    render json: team_member, include: ['clinics']
+  end
+
+  def edit_team_member
+    team_member = TeamMember.find(params[:team_member_id])
+    clinics = params[:clinics].split(", ")
+    puts "-------------------------------"
+    puts clinics
+    puts "-------------------------------"
+
+    team_member.update(
+      email: params[:email],
+      first_name: params[:first_name],
+      last_name: params[:last_name]
+    )
+
+    all_clinics = team_member.clinics.all
+
+    all_clinics.each do |clinic|
+      if clinic
+        team_member.clinics.delete clinic
+      end
+    end
+
+    clinics.each do |clinic|
+      Clinic.find(clinic).team_members << team_member
+    end
+
+    render json: team_member, include: ['clinics']
+  end
+  def edit_team_member_no_clinic
+    team_member = TeamMember.find(params[:team_member_id])
+
+    team_member.update(
+      email: params[:email],
+      first_name: params[:first_name],
+      last_name: params[:last_name]
+    )
+
+    render json: team_member, include: ['clinics']
   end
 
   private
