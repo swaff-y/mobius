@@ -92,6 +92,41 @@ pain_scores_array = []
 end
 
 procedure_array = []
+mobile_string = Faker::PhoneNumber.cell_phone.to_s
+
+mobile_number = []
+mobile_string.split("").each do |char|
+  if char.to_i >= 0 && char.to_i <= 9
+    mobile_number.push char
+  end
+end
+mobile_number = mobile_number.join("").to_s
+
+
+d = DateTime.parse(Faker::Date.forward(days: rand(1..30)).to_s)
+
+date = d.strftime("%Y-%m-%d")
+
+first_three = []
+second_three = []
+last_four = []
+count = 1
+
+mobile_number.to_s.split("").each do |char|
+  if count >= 1 && count <= 3
+    first_three.push char
+  elsif count > 3 && count <= 6
+    second_three.push char
+  else
+    last_four.push char
+  end
+  count += 1
+end
+
+number = "(" + first_three.join("").to_s + ") " + second_three.join("").to_s + " " + last_four.join("").to_s
+
+procedure_id = date + "_" + number
+
 50.times do |i|
   mobile_string = Faker::PhoneNumber.cell_phone.to_s
 
