@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_05_030805) do
+ActiveRecord::Schema.define(version: 2021_05_12_220811) do
 
   create_table "clinics", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "address"
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 2021_05_05_030805) do
 
   create_table "patients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.boolean "consent"
-    t.text "email"
     t.text "first_name"
     t.text "referring_clinician"
     t.text "last_name"
