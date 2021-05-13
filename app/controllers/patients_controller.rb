@@ -92,7 +92,6 @@ class PatientsController < ApplicationController
     # params[:referring_clinician]
     # params[:clinic_id]
     # params[:team_member_id]
-    # params[:email]
 
     mobile_string = params[:mobile_number].to_s
 
@@ -108,7 +107,6 @@ class PatientsController < ApplicationController
 
     patient = Patient.create(
       consent: params[:consent],
-      email: params[:email],
       first_name: params[:first_name],
       referring_clinician: params[:referring_clinician],
       last_name: params[:last_name],

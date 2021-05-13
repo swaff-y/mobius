@@ -58,21 +58,23 @@ class TeamMembersController < ApplicationController
   end
 
   def team_members_all
-    team_members = TeamMember.all
+    team_members = TeamMember.all.where(status: "Active")
     render json: team_members, include: ['clinics']
   end
+
   def team_members_select_clinic
-    team_members = Clinic.find(params[:clinic_id]).team_members.all
+    team_members = Clinic.find(params[:clinic_id]).team_members.all.where(status: "Active")
     render json: team_members, include: ['clinics']
   end
+
   def team_member_one
     # params[:team_member_id]
-    team_member = TeamMember.find(params[:team_member_id])
+    team_member = TeamMember.where(status: "Active").find(params[:team_member_id])
     render json: team_member, include: ['clinics']
   end
-  def team_member_select_clinic
-    params[:clinic_id]
-  end
+  # def team_member_select_clinic
+  #   params[:clinic_id]
+  # end
 
   def create_team_member
     clinics = params[:clinics].split(", ")
@@ -81,7 +83,8 @@ class TeamMembersController < ApplicationController
       email: params[:email],
       first_name: params[:first_name],
       last_name: params[:last_name],
-      user: params[:user]
+      user: params[:user],
+      status: "Active"
     )
 
     clinics.each do |clinic|
@@ -94,9 +97,6 @@ class TeamMembersController < ApplicationController
   def edit_team_member
     team_member = TeamMember.find(params[:team_member_id])
     clinics = params[:clinics].split(", ")
-    puts "-------------------------------"
-    puts clinics
-    puts "-------------------------------"
 
     team_member.update(
       email: params[:email],
@@ -118,6 +118,7 @@ class TeamMembersController < ApplicationController
 
     render json: team_member, include: ['clinics']
   end
+
   def edit_team_member_no_clinic
     team_member = TeamMember.find(params[:team_member_id])
 
@@ -128,6 +129,16 @@ class TeamMembersController < ApplicationController
     )
 
     render json: team_member, include: ['clinics']
+  end
+
+  def delete_team_member
+    team_member = TeamMember.find(params[:team_member_id])
+
+    team_member.update(
+      status:"Inactive"
+    )
+
+    render json: team_member
   end
 
   private

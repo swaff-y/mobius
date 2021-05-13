@@ -16,8 +16,6 @@ patients_array = []
 50.times do
   doctor = Faker::Name.prefix + " " + Faker::Name.first_name + " " + Faker::Name.last_name
 
-  email = Faker::Name.first_name + "@" + Faker::Name.last_name + ".com"
-
   num = rand(1..10)
   if num % 2 == 0
     program_stat = "Active"
@@ -41,7 +39,6 @@ patients_array = []
 
   create = Patient.create!(
     consent: Faker::Boolean.boolean,
-    email: email,
     first_name: Faker::Name.first_name,
     referring_clinician: doctor,
     last_name: Faker::Name.last_name,
@@ -61,7 +58,8 @@ clinic_array = []
 
   create = Clinic.create!(
     address: address,
-    name: Faker::Company.name
+    name: Faker::Company.name,
+    status: "Active"
   )
   clinic_array.push create
 end
@@ -92,17 +90,49 @@ pain_scores_array = []
 end
 
 procedure_array = []
-50.times do |i|
-  mobile_string = Faker::PhoneNumber.cell_phone.to_s
+mobile_string = Faker::PhoneNumber.cell_phone.to_s
 
-  mobile_number = []
-  mobile_string.split("").each do |char|
-    if char.to_i >= 0 && char.to_i <= 9
-      mobile_number.push char
-    end
+mobile_number = []
+mobile_string.split("").each do |char|
+  if char.to_i >= 0 && char.to_i <= 9
+    mobile_number.push char
   end
-  mobile_number = mobile_number.join("").to_s
+end
+mobile_number = mobile_number.join("").to_s
 
+
+d = DateTime.parse(Faker::Date.forward(days: rand(1..30)).to_s)
+
+date = d.strftime("%Y-%m-%d")
+
+first_three = []
+second_three = []
+last_four = []
+count = 1
+
+mobile_number.to_s.split("").each do |char|
+  if count >= 1 && count <= 3
+    first_three.push char
+  elsif count > 3 && count <= 6
+    second_three.push char
+  else
+    last_four.push char
+  end
+  count += 1
+end
+
+number = "(" + first_three.join("").to_s + ") " + second_three.join("").to_s + " " + last_four.join("").to_s
+
+procedure_id = date + "_" + number
+
+50.times do |i|
+  puts Faker::PhoneNumber.cell_phone.match(/[0-9]{10}/)
+
+  if Faker::PhoneNumber.cell_phone.match(/[0-9]{10}/)
+    mobile_number = Faker::PhoneNumber.cell_phone.match(/[0-9]{10}/).to_s
+  else
+    mobile_number = "0450123123"
+  end
 
   d = DateTime.parse(Faker::Date.forward(days: rand(1..30)).to_s)
 
@@ -111,8 +141,8 @@ procedure_array = []
   first_three = []
   second_three = []
   last_four = []
-  count = 1
 
+  count = 1
   mobile_number.to_s.split("").each do |char|
     if count >= 1 && count <= 3
       first_three.push char
@@ -137,13 +167,17 @@ procedure_array = []
 end
 
 team_members_array = []
+users = ["1618362030191x468853074473446000","1618441281287x713086912311100500","1620094895768x157513755309299330","1620189400355x126390882319669330","1620189525375x692088174123178100","1620189700608x107645580839518030","1620189983577x101508744620877340","1620190170096x291132634976257300","1620190232695x460110950679898200"]
 9.times do |i|
+
   email = Faker::Name.first_name + "@" + Faker::Name.last_name + ".com"
 
   create = TeamMember.create!(
     email: email,
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
+    user: users[i],
+    status: "Active"
   )
   team_members_array.push create
 end

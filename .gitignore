@@ -4,7 +4,7 @@
 *.DS_Store
 .AppleDouble
 .LSOverride
-# Icon must end with two 
+# Icon must end with two
 Icon
 # Thumbnails
 ._*
@@ -38,4 +38,5 @@ log/
 node_modules/
 /yarn-error.log
 .byebug_history
-                
+.Gemfile
+.Gemfile.lock
