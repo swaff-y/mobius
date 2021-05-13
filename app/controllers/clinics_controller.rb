@@ -57,25 +57,25 @@ class ClinicsController < ApplicationController
     end
   end
 
-  def clinic_select_user
-    params[:useR]
-  end
+  # def clinic_select_user
+  #   params[:useR]
+  # end
 
 
   def clinics_all
-    clinics = Clinic.all
+    clinics = Clinic.all.where(status: "Active")
     render json: clinics, include: ['team_members']
   end
 
   def clinic_one
     # params[:clinic_id]
-    clinic = Clinic.find(params[:clinic_id])
+    clinic = Clinic.where(status: "Active").find(params[:clinic_id])
     render json: clinic
   end
 
-  def clinic_select_user
-    params[:user_id]
-  end
+  # def clinic_select_user
+  #   params[:user_id]
+  # end
 
   def create_clinic
     # params[:name]
@@ -107,8 +107,12 @@ class ClinicsController < ApplicationController
     # params[:address]
     # params[:clinic_id]
     clinic = Clinic.find(params[:clinic_id])
+
+    clinic.update(
+      status: "Inactive"
+    )
     render json: clinic
-    clinic.destroy
+    # clinic.destroy
   end
 
   def clinics_select_patients
@@ -116,12 +120,12 @@ class ClinicsController < ApplicationController
       # params[:radiologist_id]
       # params[:sort]
       # params[:direction]
-      clinics = Patient.find(params[:patient_id]).clinics.all
+      clinics = Patient.find(params[:patient_id]).clinics.all.where(status: "Active")
       render json: clinics
   end
   def clinic_select_team_member
       # params[:team_member_id]
-      clinics = TeamMember.find(params[:team_member_id]).clinics.all
+      clinics = TeamMember.find(params[:team_member_id]).clinics.all.where(status: "Active")
       render json: clinics
   end
 
