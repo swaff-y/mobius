@@ -83,7 +83,8 @@ class TeamMembersController < ApplicationController
       email: params[:email],
       first_name: params[:first_name],
       last_name: params[:last_name],
-      user: params[:user]
+      user: params[:user],
+      status: "Active"
     )
 
     clinics.each do |clinic|

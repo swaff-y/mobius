@@ -82,7 +82,8 @@ class ClinicsController < ApplicationController
     # params[:address]
     clinic = Clinic.create(
       name: params[:name],
-      address: params[:address]
+      address: params[:address],
+      status: "Active"
     )
 
     render json: clinic
