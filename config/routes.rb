@@ -34,4 +34,5 @@ Rails.application.routes.draw do
   post '/edit-team-member-no-clinic/' => 'team_members#edit_team_member_no_clinic'
   post '/delete-clinic/' => 'clinics#delete_clinic'
   post '/delete-team-member/' => 'team_members#delete_team_member'
+  post '/create-pain-score/' => 'pain_scores#create_pain_score'
 end
