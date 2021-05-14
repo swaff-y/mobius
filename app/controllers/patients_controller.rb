@@ -64,9 +64,9 @@ class PatientsController < ApplicationController
     # params[:direction]
 
     if params[:team_member_id].present?
-      patients = Clinic.find(params[:clinic_id]).team_members.find(params[:team_member_id]).patients.all
+      patients = Clinic.find(params[:clinic_id]).team_members.find(params[:team_member_id]).patients.where(status: "Active").all
     else
-      patients = Clinic.find(params[:clinic_id]).patients.all
+      patients = Clinic.find(params[:clinic_id]).patients.where(status: "Active").all
     end
 
     render json: patients, include: ['procedures','team_member']
@@ -78,7 +78,7 @@ class PatientsController < ApplicationController
 
   def patient_one
     params[:patient_id]
-    patient = Patient.find(params[:patient_id])
+    patient = Patient.where(status: "Active").find(params[:patient_id])
     render json: patient, include: ['procedures','team_member']
   end
 
@@ -103,7 +103,7 @@ class PatientsController < ApplicationController
     end
     mobile_number = mobile_number.join("").to_s
 
-    clinic = Clinic.find(params[:clinic_id])
+    clinic = Clinic.where(status: "Active").find(params[:clinic_id])
 
     patient = Patient.create(
       consent: params[:consent],
@@ -115,7 +115,8 @@ class PatientsController < ApplicationController
       program_status: "Active",
       response_status: "No Response",
       return_patient: params[:return_patient],
-      team_member_id: params[:team_member_id]
+      team_member_id: params[:team_member_id],
+      status: "Active"
     )
 
     d = DateTime.parse(params[:procedure_start_date])
@@ -183,6 +184,14 @@ class PatientsController < ApplicationController
     patient.clinics << clinic
 
     render json: patient, include: ['procedures','team_member']
+  end
+
+  def delete_patient
+    patient = Patient.find(params[:patient_id])
+    patient.update(
+      status: "Inactive"
+    )
+    render json: patient
   end
 
   private

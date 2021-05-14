@@ -1,5 +1,6 @@
 class PainScoresController < ApplicationController
   before_action :set_pain_score, only: %i[ show edit update destroy ]
+  skip_before_action :verify_authenticity_token
 
   # GET /pain_scores or /pain_scores.json
   def index
@@ -60,6 +61,19 @@ class PainScoresController < ApplicationController
     # params[:patient_id]
     pain_scores = Patient.find(params[:patient_id]).pain_scores.all
     render json: pain_scores
+  end
+
+  def create_pain_score
+    custom_string = params[:custom_string].split(",");
+    procedure_id = Patient.find(custom_string[0]).procedures.first.id
+
+    pain_score = PainScore.create(
+      day: custom_string[1],
+      score: params[:score],
+      patient_id: custom_string[0],
+      procedure_id: procedure_id
+    )
+    render json: pain_score
   end
 
   private

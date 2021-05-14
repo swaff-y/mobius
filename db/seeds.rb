@@ -46,7 +46,8 @@ patients_array = []
     procedure_start_date: Faker::Date.backward(days: rand(1..30)),
     program_status: program_stat,
     response_status: response_stat,
-    return_patient: Faker::Boolean.boolean
+    return_patient: Faker::Boolean.boolean,
+    status: "Active"
   )
 
   patients_array.push create
