@@ -169,17 +169,32 @@ end
 
 team_members_array = []
 users = ["1618362030191x468853074473446000","1618441281287x713086912311100500","1620094895768x157513755309299330","1620189400355x126390882319669330","1620189525375x692088174123178100","1620189700608x107645580839518030","1620189983577x101508744620877340","1620190170096x291132634976257300","1620190232695x460110950679898200"]
+first_names = [
+  "Network",
+  "Admin",
+  "Contributor"
+]
 9.times do |i|
 
   email = Faker::Name.first_name + "@" + Faker::Name.last_name + ".com"
 
-  create = TeamMember.create!(
-    email: email,
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    user: users[i],
-    status: "Active"
-  )
+  if i < 3
+    create = TeamMember.create!(
+      email: first_names[i].downcase + "@user.com",
+      first_name: first_names[i],
+      last_name: "User",
+      user: users[i],
+      status: "Active"
+    )
+  else
+    create = TeamMember.create!(
+      email: email,
+      first_name: Faker::Name.first_name ,
+      last_name: Faker::Name.last_name ,
+      user: users[i],
+      status: "Active"
+    )
+  end
   team_members_array.push create
 end
 

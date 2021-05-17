@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_14_011940) do
+ActiveRecord::Schema.define(version: 2021_05_17_232859) do
 
   create_table "clinics", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "address"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2021_05_14_011940) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "status"
+    t.string "role"
   end
 
 end
