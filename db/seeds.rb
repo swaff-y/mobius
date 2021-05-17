@@ -184,7 +184,8 @@ first_names = [
       first_name: first_names[i],
       last_name: "User",
       user: users[i],
-      status: "Active"
+      status: "Active",
+      role: first_names[i]
     )
   else
     create = TeamMember.create!(
