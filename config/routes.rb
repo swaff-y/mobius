@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/clinic-select-user/' => 'clinics#clinic_select_user'
   get '/clinic-select-team-member/' => 'clinics#clinic_select_team_member'
   get '/clinics-all/' => 'clinics#clinics_all'
+  get '/clinics-user-all/' => 'clinics#clinics_user_all'
   get '/team-members/' => 'team_members#team_members_all'
   get '/patients-select-clinic/' => 'patients#patients_select_clinic'
   get '/clinics-select-patient/' => 'clinics#clinics_select_patients'
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
   #list-adder
   get '/clinics-select-user/' => 'clinics#clinic_select_user'
   get '/team-members-all/' => 'team_members#team_members_all'
+  get '/team-members-all-complete/' => 'team_members#team_members_all_complete'
   get '/team-members-select-clinic/' => 'team_members#team_members_select_clinic'
   get '/team-member-one/' => 'team_members#team_member_one'
   get '/patient-one/' => 'patients#patient_one'

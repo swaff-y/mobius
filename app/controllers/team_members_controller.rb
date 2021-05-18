@@ -58,12 +58,16 @@ class TeamMembersController < ApplicationController
   end
 
   def team_members_all
+    team_members = TeamMember.all.where(status: "Active", role: "Contributor")
+    render json: team_members, include: ['clinics']
+  end
+  def team_members_all_complete
     team_members = TeamMember.all.where(status: "Active")
     render json: team_members, include: ['clinics']
   end
 
   def team_members_select_clinic
-    team_members = Clinic.find(params[:clinic_id]).team_members.all.where(status: "Active")
+    team_members = Clinic.find(params[:clinic_id]).team_members.all.where(status: "Active", role: "Contributor")
     render json: team_members, include: ['clinics']
   end
 
@@ -84,7 +88,8 @@ class TeamMembersController < ApplicationController
       first_name: params[:first_name],
       last_name: params[:last_name],
       user: params[:user],
-      status: "Active"
+      status: "Active",
+      role: params[:role]
     )
 
     clinics.each do |clinic|
@@ -101,7 +106,8 @@ class TeamMembersController < ApplicationController
     team_member.update(
       email: params[:email],
       first_name: params[:first_name],
-      last_name: params[:last_name]
+      last_name: params[:last_name],
+      role: params[:role]
     )
 
     all_clinics = team_member.clinics.all

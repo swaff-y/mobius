@@ -64,7 +64,7 @@ class PatientsController < ApplicationController
     # params[:direction]
 
     if params[:team_member_id].present?
-      patients = Clinic.find(params[:clinic_id]).team_members.find(params[:team_member_id]).patients.where(status: "Active").all
+      patients = Clinic.find(params[:clinic_id]).patients.where(status:"Active", team_member_id: params[:team_member_id])
     else
       patients = Clinic.find(params[:clinic_id]).patients.where(status: "Active").all
     end
@@ -79,7 +79,7 @@ class PatientsController < ApplicationController
   def patient_one
     params[:patient_id]
     patient = Patient.where(status: "Active").find(params[:patient_id])
-    render json: patient, include: ['procedures','team_member']
+    render json: patient, include: ['procedures','team_member', 'clinics']
   end
 
   def create_patient

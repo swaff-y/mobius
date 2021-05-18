@@ -73,6 +73,11 @@ class PainScoresController < ApplicationController
       patient_id: custom_string[0],
       procedure_id: procedure_id
     )
+
+    Patient.find(custom_string[0]).update(
+      response_status: "Responded"
+    )
+
     render json: pain_score
   end
 
