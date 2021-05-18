@@ -193,7 +193,8 @@ first_names = [
       first_name: Faker::Name.first_name ,
       last_name: Faker::Name.last_name ,
       user: users[i],
-      status: "Active"
+      status: "Active",
+      role: "Contributor"
     )
   end
   team_members_array.push create
