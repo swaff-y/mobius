@@ -67,6 +67,10 @@ class PainScoresController < ApplicationController
     custom_string = params[:custom_string].split(",");
     procedure_id = Patient.find(custom_string[0]).procedures.first.id
 
+    puts "++++++++++++++++++++"
+    puts custom_string[1]
+    puts "++++++++++++++++++++"
+
     pain_score = PainScore.create(
       day: custom_string[1],
       score: params[:score],
@@ -79,6 +83,79 @@ class PainScoresController < ApplicationController
     )
 
     render json: pain_score
+  end
+
+  def update_pain_score
+    pain_score = PainScore.where(patient_id: params[:patient_id], day: params[:day] )
+
+    if pain_score != []
+      Patient.find(params[:patient_id]).update(
+        response_status: "No Response"
+      )
+
+      render json: {
+        success: true
+      }
+    else
+      render json: {
+        success: false
+      }
+    end
+  end
+  def update_pain_score_followup
+    pain_score = PainScore.where(patient_id: params[:patient_id], day: params[:day] )
+
+    if pain_score == []
+      Patient.find(params[:patient_id]).update(
+        response_status: "Follow up required"
+      )
+
+      render json: {
+        success: true
+      }
+    else
+      render json: {
+        success: false
+      }
+    end
+  end
+  def update_pain_score_responded
+    pain_score = PainScore.where(patient_id: params[:patient_id], day: params[:day] )
+
+    if pain_score != []
+      Patient.find(params[:patient_id]).update(
+        response_status: "Responded"
+      )
+
+      render json: {
+        success: true
+      }
+    else
+      render json: {
+        success: false
+      }
+    end
+  end
+
+  def pain_scores_one
+    pain_score = PainScore.where(patient_id: params[:patient_id], day: params[:day] )
+
+    if pain_score != []
+      render json: {
+        success: true
+      }
+      status = "true"
+    else
+      render json: {
+        success: false
+      }
+      status = "false"
+    end
+
+    puts "++++++++++++++++++++++++++++++="
+    puts status
+    puts pain_score
+    puts "++++++++++++++++++++++++++++++="
   end
 
   private
