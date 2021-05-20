@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get '/team-member-one/' => 'team_members#team_member_one'
   get '/patient-one/' => 'patients#patient_one'
   get '/pain-scores-select-patient/' => 'pain_scores#pain_scores_select_patient'
+  get '/pain-scores-one/' => 'pain_scores#pain_scores_one'
   post '/create-patient/' => 'patients#create_patient'
   post '/create-clinic/' => 'clinics#create_clinic'
   post '/create-team-member/' => 'team_members#create_team_member'
@@ -37,5 +38,8 @@ Rails.application.routes.draw do
   post '/delete-clinic/' => 'clinics#delete_clinic'
   post '/delete-team-member/' => 'team_members#delete_team_member'
   post '/create-pain-score/' => 'pain_scores#create_pain_score'
+  post '/update-pain-score/' => 'pain_scores#update_pain_score'
+  post '/update-pain-score-followup/' => 'pain_scores#update_pain_score_followup'
+  post '/update-pain-score-responded/' => 'pain_scores#update_pain_score_responded'
   post '/delete-patient/' => 'patients#delete_patient'
 end
