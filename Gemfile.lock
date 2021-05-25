@@ -226,6 +226,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.3)
   mysql2 (~> 0.5)
+  pg
   pry-rails
   puma (~> 5.0)
   rack-cors
