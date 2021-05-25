@@ -1,14 +1,12 @@
 branch-defaults:
   main:
-    environment: Mobius2-env
-    group_suffix: null
+    environment: Mobiusapi-env
 environment-defaults:
-  Mobius2-env:
+  Mobiusapi-env:
     branch: null
     repository: null
 global:
-  application_name: mobius2
-  branch: null
+  application_name: mobius-api
   default_ec2_keyname: mobius
   default_platform: Puma with Ruby 2.6 running on 64bit Amazon Linux
   default_region: ap-southeast-2
@@ -16,7 +14,6 @@ global:
   instance_profile: null
   platform_name: null
   platform_version: null
-  profile: eb-cli
-  repository: null
+  profile: eb-cli2
   sc: git
   workspace_type: Application
