@@ -152,10 +152,121 @@ class PainScoresController < ApplicationController
       status = "false"
     end
 
-    puts "++++++++++++++++++++++++++++++="
-    puts status
-    puts pain_score
-    puts "++++++++++++++++++++++++++++++="
+    # puts "++++++++++++++++++++++++++++++="
+    # puts status
+    # puts pain_score
+    # puts "++++++++++++++++++++++++++++++="
+  end
+
+  def pain_score_graph
+    pain_scores  = PainScore.where(patient_id: params[:patient_id])
+
+    pre_score_array = []
+    pain_scores.each do |score|
+        pre_score_array.push score.score
+    end
+
+    score_array = []
+    increment = 0
+    num = 0
+    29.times do |day|
+        if day == 0
+
+            score_array.push pre_score_array[0]
+
+        elsif day == 1
+          score_array.push pre_score_array[1]
+        elsif day == 2
+          increment = ((pre_score_array[2].to_f - pre_score_array[1].to_f) / 3)
+          num = increment + pre_score_array[1]
+          score_array.push num
+        elsif day == 3
+          score_array.push pre_score_array[2]
+        elsif day == 4
+          increment = ((pre_score_array[3].to_f - pre_score_array[2].to_f) / 4)
+          num = increment + pre_score_array[2]
+          score_array.push num
+        elsif day == 5
+          num = num + increment
+          score_array.push num
+        elsif day == 6
+          num = num + increment
+          score_array.push num
+        elsif day == 7
+          score_array.push pre_score_array[3]
+        elsif day == 8
+          increment = ((pre_score_array[4].to_f - pre_score_array[3].to_f) / 7)
+          num = increment + pre_score_array[3]
+          score_array.push num
+        elsif day == 9
+          num = num + increment
+          score_array.push num
+        elsif day == 10
+          num = num + increment
+          score_array.push num
+        elsif day == 11
+          num = num + increment
+          score_array.push num
+        elsif day == 12
+          num = num + increment
+          score_array.push num
+        elsif day == 13
+          num = num + increment
+          score_array.push num
+        elsif day == 14
+          score_array.push pre_score_array[4]
+        elsif day == 15
+          increment = ((pre_score_array[5].to_f - pre_score_array[4].to_f) / 14)
+          num = increment + pre_score_array[4]
+          score_array.push num
+        elsif day == 16
+          num = num + increment
+          score_array.push num
+        elsif day == 17
+          num = num + increment
+          score_array.push num
+        elsif day == 18
+          num = num + increment
+          score_array.push num
+        elsif day == 19
+          num = num + increment
+          score_array.push num
+        elsif day == 20
+          num = num + increment
+          score_array.push num
+        elsif day == 21
+          num = num + increment
+          score_array.push num
+        elsif day == 22
+          num = num + increment
+          score_array.push num
+        elsif day == 23
+          num = num + increment
+          score_array.push num
+        elsif day == 24
+          num = num + increment
+          score_array.push num
+        elsif day == 25
+          num = num + increment
+          score_array.push num
+        elsif day == 26
+          num = num + increment
+          score_array.push num
+        elsif day == 27
+          num = num + increment
+          score_array.push num
+        elsif day == 28
+          score_array.push pre_score_array[5]
+        else
+          score_array.push "t:"
+        end
+
+    end
+
+    render json: {
+      scores: score_array,
+      array: pre_score_array
+    }
   end
 
   private

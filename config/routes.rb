@@ -42,4 +42,6 @@ Rails.application.routes.draw do
   post '/update-pain-score-followup/' => 'pain_scores#update_pain_score_followup'
   post '/update-pain-score-responded/' => 'pain_scores#update_pain_score_responded'
   post '/delete-patient/' => 'patients#delete_patient'
+
+  get '/pain-score-graph/' => 'pain_scores#pain_score_graph'
 end
