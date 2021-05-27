@@ -59,3 +59,7 @@ gem 'faker'
 gem 'pry-rails'
 
 gem "rack-cors"
+
+# gem 'rack', '>= 2.0.0'
+#
+gem 'sinatra'
