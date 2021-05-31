@@ -40,6 +40,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
   gem 'mysql2', '~> 0.5'
+  gem 'puma', '~> 5.0'
 end
 
 group :test do
