@@ -69,7 +69,7 @@ class PatientsController < ApplicationController
       patients = Clinic.find(params[:clinic_id]).patients.where(status: "Active").all
     end
 
-    render json: patients, include: ['procedures','team_member']
+    render json: patients, include: ['procedures','user']
   end
 
   def patients_all
@@ -79,7 +79,7 @@ class PatientsController < ApplicationController
   def patient_one
     params[:patient_id]
     patient = Patient.where(status: "Active").find(params[:patient_id])
-    render json: patient, include: ['procedures','team_member', 'clinics']
+    render json: patient, include: ['procedures','user', 'clinics']
   end
 
   def create_patient
@@ -153,7 +153,7 @@ class PatientsController < ApplicationController
     clinic.procedures << procedure
     patient.clinics << clinic
 
-    render json: patient, include: ['procedures','team_member']
+    render json: patient, include: ['procedures','user']
 
   end
   def edit_patient
@@ -183,7 +183,7 @@ class PatientsController < ApplicationController
 
     patient.clinics << clinic
 
-    render json: patient, include: ['procedures','team_member']
+    render json: patient, include: ['procedures','user']
   end
 
   def delete_patient

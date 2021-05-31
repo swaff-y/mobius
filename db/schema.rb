@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_31_011626) do
+ActiveRecord::Schema.define(version: 2021_05_31_021140) do
 
   create_table "clinics", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "address"
@@ -28,6 +28,11 @@ ActiveRecord::Schema.define(version: 2021_05_31_011626) do
   create_table "clinics_team_members", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "team_member_id", null: false
     t.bigint "clinic_id", null: false
+  end
+
+  create_table "clinics_users", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "clinic_id", null: false
+    t.bigint "user_id", null: false
   end
 
   create_table "pain_scores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -51,8 +56,8 @@ ActiveRecord::Schema.define(version: 2021_05_31_011626) do
     t.boolean "return_patient"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "team_member_id"
     t.text "status"
+    t.integer "user_id"
   end
 
   create_table "procedures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -75,6 +80,18 @@ ActiveRecord::Schema.define(version: 2021_05_31_011626) do
     t.text "status"
     t.string "role"
     t.string "password_digest"
+  end
+
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "email"
+    t.text "first_name"
+    t.text "last_name"
+    t.text "user"
+    t.text "status"
+    t.string "role"
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

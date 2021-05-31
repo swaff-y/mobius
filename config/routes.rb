@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :team_members
+  resources :users
+  post 'user_token' => 'user_token#create'
+
   resources :procedures
   resources :pain_scores
   resources :clinics
@@ -44,4 +46,6 @@ Rails.application.routes.draw do
   post '/delete-patient/' => 'patients#delete_patient'
 
   get '/pain-score-graph/' => 'pain_scores#pain_score_graph'
+
+
 end

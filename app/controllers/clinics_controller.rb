@@ -64,14 +64,14 @@ class ClinicsController < ApplicationController
 
   def clinics_all
     clinics = Clinic.all.where(status: "Active")
-    render json: clinics, include: ['team_members']
+    render json: clinics, include: ['users']
   end
 
   def clinics_user_all
-    user = TeamMember.find(params[:user_id])
+    user = User.find(params[:user_id])
 
     if user.role == "Contributor"
-      clinics = TeamMember.find(params[:user_id]).clinics.all
+      clinics = User.find(params[:user_id]).clinics.all
     else
       clinics = Clinic.where(status: "Active").all
     end
@@ -139,7 +139,7 @@ class ClinicsController < ApplicationController
   def clinic_select_team_member
       # params[:team_member_id]
 
-      clinics = TeamMember.find(params[:team_member_id]).clinics.all.where(status: "Active")
+      clinics = User.find(params[:team_member_id]).clinics.all.where(status: "Active")
       render json: clinics
   end
 
