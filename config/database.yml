@@ -63,3 +63,9 @@ production:
     password: <%= ENV['RDS_PASSWORD'] %>
     host: <%= ENV['RDS_HOSTNAME'] %>
     port: <%= ENV['RDS_PORT'] %>
+    # adapter: mysql2
+    # encoding: utf8mb4
+    # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    # username: root
+    # password:
+    # socket: /tmp/mysql.sock
