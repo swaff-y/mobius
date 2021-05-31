@@ -185,7 +185,8 @@ first_names = [
       last_name: "User",
       user: users[i],
       status: "Active",
-      role: first_names[i]
+      role: first_names[i],
+      password: "chicken"
     )
   else
     create = TeamMember.create!(
@@ -194,7 +195,8 @@ first_names = [
       last_name: Faker::Name.last_name ,
       user: users[i],
       status: "Active",
-      role: "Contributor"
+      role: "Contributor",
+      password: "chicken"
     )
   end
   team_members_array.push create
