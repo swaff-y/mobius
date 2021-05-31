@@ -10,7 +10,7 @@ Patient.destroy_all
 Clinic.destroy_all
 PainScore.destroy_all
 Procedure.destroy_all
-TeamMember.destroy_all
+# TeamMember.destroy_all
 User.destroy_all
 
 patients_array = []
@@ -187,7 +187,7 @@ first_names = [
       user: users[i],
       status: "Active",
       role: first_names[i],
-      password: "chicken"
+      password: "chickens"
     )
   else
     create = User.create!(
