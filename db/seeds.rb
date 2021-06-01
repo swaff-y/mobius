@@ -10,7 +10,8 @@ Patient.destroy_all
 Clinic.destroy_all
 PainScore.destroy_all
 Procedure.destroy_all
-TeamMember.destroy_all
+# TeamMember.destroy_all
+User.destroy_all
 
 patients_array = []
 50.times do
@@ -179,22 +180,24 @@ first_names = [
   email = Faker::Name.first_name + "@" + Faker::Name.last_name + ".com"
 
   if i < 3
-    create = TeamMember.create!(
+    create = User.create!(
       email: first_names[i].downcase + "@user.com",
       first_name: first_names[i],
       last_name: "User",
       user: users[i],
       status: "Active",
-      role: first_names[i]
+      role: first_names[i],
+      password: "chickens"
     )
   else
-    create = TeamMember.create!(
+    create = User.create!(
       email: email,
       first_name: Faker::Name.first_name ,
       last_name: Faker::Name.last_name ,
       user: users[i],
       status: "Active",
-      role: "Contributor"
+      role: "Contributor",
+      password: "chicken"
     )
   end
   team_members_array.push create
@@ -249,8 +252,8 @@ counter = 0
 end
 puts "------------------------------------------"
 puts "Testing patients -< team members associations:"
-puts "The patient '#{ Patient.first.first_name }' has team member #{Patient.first.team_member.first_name}"
-puts "The team member #{ TeamMember.last.first_name } has patient: #{ TeamMember.last.patients.pluck(:first_name).join(', ') }"
+puts "The patient '#{ Patient.first.first_name }' has team member #{Patient.first.user.first_name}"
+puts "The team member #{ User.last.first_name } has patient: #{ User.last.patients.pluck(:first_name).join(', ') }"
 puts "------------------------------------------"
 #Procedure >- pain_scores Associations
 counter = 0
@@ -285,16 +288,16 @@ puts "------------------------------------------"
 counter = 0
 9.times do |i|
   if i <= 16
-    clinic_array[0].team_members << team_members_array[i]
+    clinic_array[0].users << team_members_array[i]
   elsif i > 16 && i <= 32
-    clinic_array[1].team_members << team_members_array[i]
+    clinic_array[1].users << team_members_array[i]
   elsif i > 32
-    clinic_array[2].team_members << team_members_array[i]
+    clinic_array[2].users << team_members_array[i]
   end
 end
 puts "------------------------------------------"
 puts "Testing team_members >-< clinic associations:"
 
-puts "The team member #{ TeamMember.first.first_name } has clinics: #{ TeamMember.first.clinics.pluck(:name).join(', ') }"
-puts "The clinic #{ Clinic.last.name } has team members: #{ Clinic.last.team_members.pluck(:first_name).join(', ') }"
+puts "The team member #{ User.first.first_name } has clinics: #{ User.first.clinics.pluck(:name).join(', ') }"
+puts "The clinic #{ Clinic.last.name } has team members: #{ Clinic.last.users.pluck(:first_name).join(', ') }"
 puts "------------------------------------------"

@@ -1,61 +1,62 @@
 class ClinicsController < ApplicationController
+  before_action :authenticate_user
   before_action :set_clinic, only: %i[ show edit update destroy ]
-  skip_before_action :verify_authenticity_token
+  # skip_before_action :verify_authenticity_token
 
-  # GET /clinics or /clinics.json
-  def index
-    @clinics = Clinic.all
-  end
-
-  # GET /clinics/1 or /clinics/1.json
-  def show
-  end
-
-  # GET /clinics/new
-  def new
-    @clinic = Clinic.new
-  end
-
-  # GET /clinics/1/edit
-  def edit
-  end
-
-  # POST /clinics or /clinics.json
-  def create
-    @clinic = Clinic.new(clinic_params)
-
-    respond_to do |format|
-      if @clinic.save
-        format.html { redirect_to @clinic, notice: "Clinic was successfully created." }
-        format.json { render :show, status: :created, location: @clinic }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @clinic.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /clinics/1 or /clinics/1.json
-  def update
-    respond_to do |format|
-      if @clinic.update(clinic_params)
-        format.html { redirect_to @clinic, notice: "Clinic was successfully updated." }
-        format.json { render :show, status: :ok, location: @clinic }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @clinic.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /clinics/1 or /clinics/1.json
-  def destroy
-    @clinic.destroy
-    respond_to do |format|
-      format.html { redirect_to clinics_url, notice: "Clinic was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  # # GET /clinics or /clinics.json
+  # def index
+  #   @clinics = Clinic.all
+  # end
+  #
+  # # GET /clinics/1 or /clinics/1.json
+  # def show
+  # end
+  #
+  # # GET /clinics/new
+  # def new
+  #   @clinic = Clinic.new
+  # end
+  #
+  # # GET /clinics/1/edit
+  # def edit
+  # end
+  #
+  # # POST /clinics or /clinics.json
+  # def create
+  #   @clinic = Clinic.new(clinic_params)
+  #
+  #   respond_to do |format|
+  #     if @clinic.save
+  #       format.html { redirect_to @clinic, notice: "Clinic was successfully created." }
+  #       format.json { render :show, status: :created, location: @clinic }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @clinic.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
+  #
+  # # PATCH/PUT /clinics/1 or /clinics/1.json
+  # def update
+  #   respond_to do |format|
+  #     if @clinic.update(clinic_params)
+  #       format.html { redirect_to @clinic, notice: "Clinic was successfully updated." }
+  #       format.json { render :show, status: :ok, location: @clinic }
+  #     else
+  #       format.html { render :edit, status: :unprocessable_entity }
+  #       format.json { render json: @clinic.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
+  #
+  # # DELETE /clinics/1 or /clinics/1.json
+  # def destroy
+  #   @clinic.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to clinics_url, notice: "Clinic was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   # def clinic_select_user
   #   params[:useR]
@@ -64,14 +65,14 @@ class ClinicsController < ApplicationController
 
   def clinics_all
     clinics = Clinic.all.where(status: "Active")
-    render json: clinics, include: ['team_members']
+    render json: clinics, include: ['users']
   end
 
   def clinics_user_all
-    user = TeamMember.find(params[:user_id])
+    user = User.find(params[:user_id])
 
     if user.role == "Contributor"
-      clinics = TeamMember.find(params[:user_id]).clinics.all
+      clinics = User.find(params[:user_id]).clinics.all
     else
       clinics = Clinic.where(status: "Active").all
     end
@@ -139,7 +140,7 @@ class ClinicsController < ApplicationController
   def clinic_select_team_member
       # params[:team_member_id]
 
-      clinics = TeamMember.find(params[:team_member_id]).clinics.all.where(status: "Active")
+      clinics = User.find(params[:team_member_id]).clinics.all.where(status: "Active")
       render json: clinics
   end
 

@@ -1,61 +1,62 @@
 class PatientsController < ApplicationController
+  before_action :authenticate_user
   before_action :set_patient, only: %i[ show edit update destroy ]
-  skip_before_action :verify_authenticity_token
+  # skip_before_action :verify_authenticity_token
 
-  # GET /patients or /patients.json
-  def index
-    @patients = Patient.all
-  end
-
-  # GET /patients/1 or /patients/1.json
-  def show
-  end
-
-  # GET /patients/new
-  def new
-    @patient = Patient.new
-  end
-
-  # GET /patients/1/edit
-  def edit
-  end
-
-  # POST /patients or /patients.json
-  def create
-    @patient = Patient.new(patient_params)
-
-    respond_to do |format|
-      if @patient.save
-        format.html { redirect_to @patient, notice: "Patient was successfully created." }
-        format.json { render :show, status: :created, location: @patient }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @patient.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /patients/1 or /patients/1.json
-  def update
-    respond_to do |format|
-      if @patient.update(patient_params)
-        format.html { redirect_to @patient, notice: "Patient was successfully updated." }
-        format.json { render :show, status: :ok, location: @patient }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @patient.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /patients/1 or /patients/1.json
-  def destroy
-    @patient.destroy
-    respond_to do |format|
-      format.html { redirect_to patients_url, notice: "Patient was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  # # GET /patients or /patients.json
+  # def index
+  #   @patients = Patient.all
+  # end
+  #
+  # # GET /patients/1 or /patients/1.json
+  # def show
+  # end
+  #
+  # # GET /patients/new
+  # def new
+  #   @patient = Patient.new
+  # end
+  #
+  # # GET /patients/1/edit
+  # def edit
+  # end
+  #
+  # # POST /patients or /patients.json
+  # def create
+  #   @patient = Patient.new(patient_params)
+  #
+  #   respond_to do |format|
+  #     if @patient.save
+  #       format.html { redirect_to @patient, notice: "Patient was successfully created." }
+  #       format.json { render :show, status: :created, location: @patient }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @patient.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
+  #
+  # # PATCH/PUT /patients/1 or /patients/1.json
+  # def update
+  #   respond_to do |format|
+  #     if @patient.update(patient_params)
+  #       format.html { redirect_to @patient, notice: "Patient was successfully updated." }
+  #       format.json { render :show, status: :ok, location: @patient }
+  #     else
+  #       format.html { render :edit, status: :unprocessable_entity }
+  #       format.json { render json: @patient.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
+  #
+  # # DELETE /patients/1 or /patients/1.json
+  # def destroy
+  #   @patient.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to patients_url, notice: "Patient was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   def patients_select_clinic
     # params[:clinic_id]
@@ -69,7 +70,7 @@ class PatientsController < ApplicationController
       patients = Clinic.find(params[:clinic_id]).patients.where(status: "Active").all
     end
 
-    render json: patients, include: ['procedures','team_member']
+    render json: patients, include: ['procedures','user']
   end
 
   def patients_all
@@ -79,7 +80,7 @@ class PatientsController < ApplicationController
   def patient_one
     params[:patient_id]
     patient = Patient.where(status: "Active").find(params[:patient_id])
-    render json: patient, include: ['procedures','team_member', 'clinics']
+    render json: patient, include: ['procedures','user', 'clinics']
   end
 
   def create_patient
@@ -153,7 +154,7 @@ class PatientsController < ApplicationController
     clinic.procedures << procedure
     patient.clinics << clinic
 
-    render json: patient, include: ['procedures','team_member']
+    render json: patient, include: ['procedures','user']
 
   end
   def edit_patient
@@ -183,7 +184,7 @@ class PatientsController < ApplicationController
 
     patient.clinics << clinic
 
-    render json: patient, include: ['procedures','team_member']
+    render json: patient, include: ['procedures','user']
   end
 
   def delete_patient
