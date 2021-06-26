@@ -235,8 +235,8 @@ DEPENDENCIES
   knock
   listen (~> 3.3)
   mysql2 (~> 0.5)
-  pry-rails
   pg
+  pry-rails
   puma
   rack-cors
   rack-mini-profiler (~> 2.0)
