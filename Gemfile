@@ -63,6 +63,6 @@ gem 'pry-rails'
 
 gem "rack-cors"
 
-gem 'puma'
+# gem 'puma'
 
 # gem 'sinatra'
