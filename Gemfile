@@ -61,7 +61,7 @@ gem 'faker'
 
 gem 'pry-rails'
 
-gem "rack-cors"
+gem "rack-cors", ">= 3.0.0"
 
 # gem 'puma'
 
